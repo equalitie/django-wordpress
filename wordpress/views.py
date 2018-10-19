@@ -17,7 +17,6 @@ TAXONOMIES = {
 
 
 class AuthorArchive(generic.list.ListView):
-
     allow_empty = True
     context_object_name = "post_list"
     paginate_by = PER_PAGE
@@ -40,7 +39,6 @@ class AuthorArchive(generic.list.ListView):
 
 
 class Preview(generic.detail.DetailView):
-
     context_object_name = 'post'
     pk_url_kwarg = 'p'
     queryset = Post.objects.all()
@@ -52,7 +50,6 @@ class Preview(generic.detail.DetailView):
 
 
 class PostDetail(generic.dates.DateDetailView):
-
     allow_future = True
     context_object_name = 'post'
     date_field = 'post_date'
@@ -65,7 +62,7 @@ class PostDetail(generic.dates.DateDetailView):
         return context
 
     def get_object(self):
-        self.kwargs['slug'] = urllib.quote(self.kwargs['slug'].encode('utf-8')).lower()
+        self.kwargs['slug'] = urllib.parse.quote(self.kwargs['slug'].encode('utf-8')).lower()
         return super(PostDetail, self).get_object()
 
     def get(self, request, *args, **kwargs):
@@ -73,7 +70,6 @@ class PostDetail(generic.dates.DateDetailView):
 
 
 class PostAttachment(PostDetail):
-
     def get(self, request, *args, **kwargs):
         post = self.get_object()
         attachment = get_object_or_404(Post, post_type='attachment', slug=self.kwargs['attachment_slug'], parent_id=post.pk)
@@ -102,7 +98,6 @@ class YearArchive(generic.dates.YearArchiveView):
 
 
 class Archive(generic.dates.ArchiveIndexView):
-
     allow_empty = True
     context_object_name = 'post_list'
     paginate_by = PER_PAGE
@@ -148,7 +143,6 @@ class TermArchive(generic.list.ListView):
 # *** DEPRECATED ***
 # Method-based views for compatibilty with older code.
 #
-
 deprecation_msg = "Method-based views are deprecated and will be removed in a near-future version."
 
 

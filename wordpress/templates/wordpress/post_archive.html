@@ -1,1 +1,5 @@
-{{ post_list }}
+<ul>
+{% for post in post_list %}
+<li>{{post.post_date}} <a href="{% url 'wp_object_detail' post.post_date.year post.post_date.month post.post_date.day post.slug %}">{{ post.title }}</a></li>
+{% endfor %}
+</ul>

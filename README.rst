@@ -77,4 +77,4 @@ Add to INSTALLED_APPS in settings.py::
 
 Include the following in urls.py::
 
-    url(r'^path/to/blog/', include('wordpress.urls')),
+    path('path/to/blog/', include('wordpress.urls'))
